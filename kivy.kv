@@ -1,0 +1,113 @@
+#:kivy 2.0.0
+#: import os os
+
+Manager:
+    Menu_screen:
+    Info_screen:
+    Game_screen:
+    
+<Menu_screen>:
+    name: "Menu"
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: "menu_source/fond.jpg"
+
+        Label:
+            canvas.before:
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    source: "menu_source/menu.png"
+
+        Button:
+            on_release: app.root.current = "Game"
+            background_color: 0,0,0,0
+            size_hint: 0.4, .5
+            pos_hint: {'center_x' : 0.5,}
+            canvas.before:
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    source: "menu_source/newgame.png"
+        Button:
+            on_release: os.system("python save_game.py")
+            background_color: 0,0,0,0
+            size_hint: 0.4, .5
+            pos_hint: {'center_x' : 0.5}
+            canvas.before:
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    source: "menu_source/sauvegarder.png"
+        Button:
+            on_release: os.system("python load_game.py")
+            background_color: 0,0,0,0
+            size_hint: 0.4, .5
+            pos_hint: {'center_x' : 0.5}
+            canvas.before:
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    source: "menu_source/charger.png"
+        Button:
+            on_release: app.root.current = "Info"
+            background_color: 0,0,0,0
+            size_hint: 0.4, .5
+            pos_hint: {'center_x' : 0.5}
+            canvas.before:
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    source: "menu_source/info.png"
+        Button:
+            on_release: app.stop()
+            background_color: 0,0,0,0
+            size_hint: 0.4, .5
+            pos_hint: {'center_x' : 0.5}
+            canvas.before:
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    source: "menu_source/quit.png"
+
+<Info_screen>:
+    name: "Info"
+
+    FloatLayout:
+
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: "menu_source/fond_regle.png"
+
+        #Label:
+            #text: root.showtext()
+            #pos_hint: {'center_x' : 0.5, 'center_y' : 0.6}
+            #font_size: 12
+
+        Button:
+            on_release: app.root.current = "Menu"
+            background_color: 0,0,0,0
+            size_hint: 0.4, 0.1
+            pos_hint: {'center_x' : 0.5, 'center_y' : 0.1}
+            canvas.before:
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    source: "menu_source/retour.png"
+
+<Game_screen>:
+    name: "Game"
+    on_enter: os.system("python game.py")
+    Button:
+        text: "Retour au menu"
+        font_size: 32
+        on_release: app.root.current = "Menu"

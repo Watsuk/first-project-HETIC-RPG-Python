@@ -1,0 +1,2 @@
+character_hp -10
+monster_hp 100

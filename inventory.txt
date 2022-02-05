@@ -1,0 +1,3 @@
+watermelon 0
+potato 0
+apple 1

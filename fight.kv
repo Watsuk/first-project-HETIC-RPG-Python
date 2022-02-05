@@ -1,0 +1,250 @@
+#:kivy 2.0.0
+
+
+Manager:
+	FightScreen:
+	AttackScreen:
+	InventScreen:
+
+<FightScreen>:
+	name: "Fight"
+	BoxLayout:
+#		canvas.before:
+#			Rectangle:
+#				pos: self.pos
+#				size: self.size
+##				source: 'attack/attack1.png'
+		orientation: "vertical"
+		BoxLayout:
+			size_hint_y: None
+			orientation: "horizontal"
+			height: dp(20)
+			pos: self.parent.pos
+			Label:
+				id: lb_life
+				text: "HP " + str(root.lifehp)
+				halign: 'left'
+			Label:
+				id: lb_monsterhp
+				text: "Monster HP " + str(root.monsterhp)
+				halign: 'right'
+		BoxLayout:
+			size_hint_y: None
+			orientation: "horizontal"
+			height: dp(20)
+			pos: self.parent.pos
+			Label:
+				id: lb_prio
+				text: root.speed1
+				halign: 'left'
+			Label:
+				id: lb_monsterprio
+				text: root.speed2
+				halign: 'right'
+		BoxLayout:
+			size_hint_y: None
+			orientation: "horizontal"
+			Image:
+				source: "sprites/front1.png"
+				size: 400, 400 / self.image_ratio
+			Image:
+				source: "enemy1/front1.png"
+				size: 400, 400 / self.image_ratio
+		Button:
+			size_hint_y: None
+			height: self.parent.height * 0.111
+
+			StackLayout:
+				orientation: "lr-tb"
+				pos: self.parent.pos
+				size: self.parent.size
+				Button:
+					text: 'Fight'
+					size_hint_x: None
+                	width: self.parent.width / 4
+					height: self.parent.height * 0.111
+					on_press:
+						root.manager.transition.direction = 'left'
+						app.root.current = 'Attack'
+						root.go_fight()
+				Button:
+					text: 'Inventory'
+					size_hint_x: None
+                	width: self.parent.width / 4
+					height: self.parent.height * 0.111
+					on_press:
+						root.manager.transition.direction = 'left'
+						app.root.current = 'Invent'
+						root.open_inventory()
+				Button:
+					text: 'Element'
+					size_hint_x: None
+                	width: self.parent.width / 4
+					height: self.parent.height * 0.111
+					on_press: root.open_element()
+				Button:
+					text: 'Escape'
+					size_hint_x: None
+                	width: self.parent.width / 4
+					height: self.parent.height * 0.111
+					on_release:
+						root.manager.transition.direction = 'right'
+						app.stop()
+
+
+<AttackScreen>:
+	name: "Attack"
+	BoxLayout:
+		orientation: "vertical"
+		BoxLayout:
+			size_hint_y: None
+			orientation: "horizontal"
+			height: dp(20)
+			pos: self.parent.pos
+			Label:
+				id: lb_life
+				text: "HP " + str(root.lifehp)
+				halign: 'left'
+			Label:
+				id: lb_monsterhp
+				text: "Monster HP " + str(root.monsterhp)
+				halign: 'right'
+		BoxLayout:
+			size_hint_y: None
+			orientation: "horizontal"
+			height: dp(20)
+			pos: self.parent.pos
+			Label:
+				id: lb_prio
+				text: root.speed1
+				halign: 'left'
+			Label:
+				id: lb_monsterprio
+				text: root.speed2
+				halign: 'right'
+		BoxLayout:
+			size_hint_y: None
+			orientation: "horizontal"
+			Image:
+				source: "sprites/front1.png"
+				size: 400, 400 / self.image_ratio
+			Image:
+				source: "enemy1/front1.png"
+				size: 400, 400 / self.image_ratio
+#			Image:
+#				id: imageView
+#				source: root.source
+#				size: 400, 400 / self.image_ratio
+		Button:
+			size_hint_y: None
+			height: self.parent.height * 0.111
+
+			StackLayout:
+				orientation: "lr-tb"
+				pos: self.parent.pos
+				size: self.parent.size
+
+				Button:
+					text: 'Attack'
+					size_hint_x: None
+                	width: self.parent.width / 4
+					on_press: root.attack(1)
+				Button:
+					text: 'Stun Next Round'
+					size_hint_x: None
+                	width: self.parent.width / 4
+					on_press: root.attack(2)
+				Button:
+					text: 'Renforce Attack'
+					size_hint_x: None
+                	width: self.parent.width / 4
+					on_press: root.attack(3)
+				Button:
+					text: 'Back'
+					size_hint_x: None
+                	width: self.parent.width / 4
+					on_release:
+						root.manager.transition.direction = 'right'
+						app.root.current = "Fight"
+
+
+<InventScreen>:
+	name: "Invent"
+	BoxLayout:
+		orientation: "vertical"
+		BoxLayout:
+			size_hint_y: None
+			orientation: "horizontal"
+			height: dp(20)
+			pos: self.parent.pos
+			Label:
+				id: lb_watermelon
+				text: "Watermelon " + str(root.nb_watermelon)
+				halign: 'left'
+			Label:
+				id: lb_potato
+				text: "Potato " + str(root.nb_potato)
+				halign: 'right'
+			Label:
+				id: lb_apple
+				text: "Apple " + str(root.nb_apple)
+				halign: 'left'
+			Label:
+				id: lb_mystery
+				text: " " + str(root.nb_mystery)
+				halign: 'right'
+			Label:
+				text: ""
+				halign: 'right'
+		BoxLayout:
+			size_hint_y: None
+			orientation: "horizontal"
+			Image:
+				source: "sprites/watermelon.png"
+				size: 400, 400 / self.image_ratio
+			Image:
+				source: "sprites/potato.png"
+				size: 400, 400 / self.image_ratio
+			Image:
+				source: "sprites/apple.png"
+				size: 400, 400 / self.image_ratio
+			Image:
+				source: "transparent.png"
+				size: 400, 400 / self.image_ratio
+		Button:
+			size_hint_y: None
+			height: self.parent.height * 0.111
+
+			StackLayout:
+				orientation: "lr-tb"
+				pos: self.parent.pos
+				size: self.parent.size
+
+				Button:
+					text: 'Watermelon'
+					size_hint_x: None
+                	width: self.parent.width / 5
+					on_press: root.invent(1)
+				Button:
+					text: 'Potato'
+					size_hint_x: None
+                	width: self.parent.width / 5
+					on_press: root.invent(2)
+				Button:
+					text: 'Apple'
+					size_hint_x: None
+                	width: self.parent.width / 5
+					on_press: root.invent(3)
+				Button:
+					text: ''
+					size_hint_x: None
+                	width: self.parent.width / 5
+					on_press: root.invent(4)
+				Button:
+					text: 'Back'
+					size_hint_x: None
+                	width: self.parent.width / 5
+					on_release:
+						root.manager.transition.direction = 'right'
+						app.root.current = "Fight"
+						root.inventSave()
